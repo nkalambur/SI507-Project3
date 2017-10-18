@@ -259,7 +259,7 @@ for park in california_list_of_parks:
 fieldnames = ['Name', 'Location', 'Type', 'Address', 'Description']
 
 with open('arkansas.csv','w', newline='') as f:
-	w = csv.writer(f, delimiter='|', quotechar='"')
+	w = csv.writer(f, delimiter=',', quotechar='"')
 	w.writerow(fieldnames)
 	for site in arkansas_natl_sites:
 		addr = site.get_mailing_address()
@@ -267,7 +267,7 @@ with open('arkansas.csv','w', newline='') as f:
 		w.writerow([site.name.replace('\n',''), site.location.replace('\n',''), site.type.replace('\n',''), addr, site.description.replace('\n','')])
 
 with open('michigan.csv','w', newline='') as f:
-	w = csv.writer(f, delimiter='|', quotechar='"')
+	w = csv.writer(f, delimiter=',', quotechar='"')
 	w.writerow(fieldnames)
 	for site in michigan_natl_sites:
 		addr = site.get_mailing_address()
@@ -275,7 +275,7 @@ with open('michigan.csv','w', newline='') as f:
 		w.writerow([site.name.replace('\n',''), site.location.replace('\n',''), site.type.replace('\n',''), addr, site.description.replace('\n','')])
 
 with open('california.csv','w', newline='') as f:
-	w = csv.writer(f, delimiter='|', quotechar='"')
+	w = csv.writer(f, delimiter=',', quotechar='"')
 	w.writerow(fieldnames)
 	for site in california_natl_sites:
 		addr = site.get_mailing_address()
