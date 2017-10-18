@@ -59,16 +59,20 @@ except:
 govt_data = BeautifulSoup(nps_gov_data, 'html.parser')
 li = govt_data.find('ul', {'class':'dropdown-menu SearchBar-keywordSearch'}).find_all('a')
 # Fetches data from cached soup instance of govt root url data
-states = ['michigan', 'california', 'arkansas'] 
+states = ['Michigan', 'California', 'Arkansas'] 
+
+## TESTED BY FETCHING OHIO - states list above needs to have upper case letters
 # States of interest to problem - keep these lower case to match to file names
 # Try & Except clause - should be easy to just add a state on the fly, per README
+# print(states)
 
 for each_state in li:
     state = each_state.text
+#    print(state)
     if state in states:
         state_href = "http://www.nps.gov"+str(each_state.get('href'))
-        fname = str(state)+"_data.html"
-        print(state_href)
+        fname = str(state).lower()+"_data.html"
+        # need to include lower case state names!!
         try:
             state_data = open(fname, 'r').read()
         except:
@@ -113,6 +117,8 @@ arkansas_bs = BeautifulSoup(arkansas_data, 'html.parser')
 california_data = open('california_data.html', 'r').read()
 california_bs = BeautifulSoup(california_data, 'html.parser')
 
+#ohio_data = open('ohio_data.html', 'r').read()
+#ohio_bs = BeautifulSoup(ohio_data, 'html.parser')
 
 ### FUNCTION NEEDED TO GET LIST OF PARKS WITHIN EACH STATE'S HTML SOUP OBJECT
 ### CRITICAL FOR PROCESSING ALL OF A STATE'S NATIONAL PARKS INTO A CSV
@@ -197,12 +203,12 @@ class NationalSite(object):
 # print(sample_inst.location)
 # f.close()
 
-# list_of_michigan_parks = get_each_states_parks(michigan_bs)
-# third_mich_park = list_of_michigan_parks[2]
-# try1 = NationalSite(third_mich_park)
+# list_of_ohio_parks = get_each_states_parks(ohio_bs)
+# third_ohio_park = list_of_ohio_parks[2]
+# try1 = NationalSite(third_ohio_park)
 # print(try1)
 # print("ABOVE IS TRY 1")
-
+# TESTED FOR ohio - found error - state list needed to be capitalized!
 # fff = open('sample_html_of_park.html', 'r').read()
 # ffff = BeautifulSoup(fff, 'html.parser')
 # try2 = NationalSite(ffff)
@@ -220,11 +226,12 @@ michigan_list_of_parks = get_each_states_parks(michigan_bs)
 # print(len(michigan_list_of_parks))
 california_list_of_parks = get_each_states_parks(california_bs)
 # print(len(california_list_of_parks))
-
 ## sum of all the lengths of each list should = the number of rows in all of the CSV files! 
+
 michigan_natl_sites = []
 for park in michigan_list_of_parks:
 	park_sp = NationalSite(park)
+	# print(park_sp.url) --> just a check
 	michigan_natl_sites.append(park_sp)
 
 arkansas_natl_sites = []
