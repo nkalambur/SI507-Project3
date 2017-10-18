@@ -113,6 +113,12 @@ arkansas_bs = BeautifulSoup(arkansas_data, 'html.parser')
 california_data = open('california_data.html', 'r').read()
 california_bs = BeautifulSoup(california_data, 'html.parser')
 
+
+### FUNCTION NEEDED TO GET LIST OF PARKS WITHIN EACH STATE'S HTML SOUP OBJECT
+### CRITICAL FOR PROCESSING ALL OF A STATE'S NATIONAL PARKS INTO A CSV
+### KEEP BOTH COLUMNS OF DATA FOR EACH PARK -- NEED THE ROOT DATA & THE HREF LINKS TO GET BASIC INFORMATION
+### CAN USE THIS TEST FOR TESTING NATIONALSITE CLASS AND CSV GENERATION
+
 def get_each_states_parks(soup_object):
     list_of_parks = soup_object.find('ul', {'id':'list_parks'}).find_all('li', {'class':'clearfix'})
     return list_of_parks
